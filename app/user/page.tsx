@@ -168,71 +168,79 @@ checkUser();
   }
 
   // 🎨 Interfaz
-  return (
+ return (
 
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow">
+  <div className="profile-page">
 
-      <h1 className="text-2xl font-bold mb-4 text-center">
-        Mi Perfil
-      </h1>
+    <div className="profile-card">
+
+      <div className="profile-header">
+
+       <div className="profile-avatar">
+  {fotoPerfil ? (
+    <img
+      src={fotoPerfil}
+      alt="Foto de perfil"
+      className="profile-avatar-image"
+    />
+  ) : (
+    nombreUsuario?.charAt(0)?.toUpperCase() || "U"
+  )}
+</div>
+
+        <h1 className="profile-title">
+          Mi Perfil
+        </h1>
+
+      </div>
 
       {usuario ? (
 
         <form
           onSubmit={handleUpdate}
-          className="flex flex-col gap-4"
+          className="profile-form"
         >
 
-          {/* Nombre usuario */}
           <input
             type="text"
             value={nombreUsuario}
             onChange={(e) =>
-              setNombreUsuario(
-                e.target.value
-              )
+              setNombreUsuario(e.target.value)
             }
             placeholder="Nombre de usuario"
             required
-            className="border p-2 rounded"
+            className="profile-input"
           />
 
-          {/* Foto perfil */}
           <input
             type="text"
             value={fotoPerfil}
             onChange={(e) =>
-              setFotoPerfil(
-                e.target.value
-              )
+              setFotoPerfil(e.target.value)
             }
-            placeholder="URL foto perfil"
-            className="border p-2 rounded"
+            placeholder="URL de foto de perfil"
+            className="profile-input"
           />
 
-          {/* Biografía */}
           <textarea
             value={biografia}
             onChange={(e) =>
-              setBiografia(
-                e.target.value
-              )
+              setBiografia(e.target.value)
             }
             placeholder="Biografía"
-            className="border p-2 rounded"
+            className="profile-textarea"
           />
 
-          {/* Correo */}
           <input
             type="email"
             value={usuario.correo}
             readOnly
-            className="border p-2 rounded bg-gray-100 text-gray-600"
+            className="profile-email"
           />
 
           <button
             type="submit"
-            className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+            className="save-button"
           >
             Guardar cambios
           </button>
@@ -241,24 +249,28 @@ checkUser();
 
       ) : (
 
-        <p className="text-center text-gray-600">
+        <p className="profile-message">
           {mensaje}
         </p>
+
       )}
 
       {mensaje && (
-
-        <p className="mt-4 text-center text-gray-700 font-medium">
+        <p className="profile-message">
           {mensaje}
         </p>
       )}
+
       <button
-onClick={handleLogout}
-className="bg-gray-400 text-white p-2 rounded mt-4 w-full"
->
-Cerrar sesión
-</button>
-    
+        onClick={handleLogout}
+        className="logout-button"
+      >
+        Cerrar sesión
+      </button>
+
     </div>
-  );
+
+  </div>
+
+);
 }

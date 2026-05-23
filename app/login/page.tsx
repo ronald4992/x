@@ -27,7 +27,13 @@ return;
 }
 // ✅ Si el login es exitoso, guardamos el usuario en sesión
 if (data.user) { //data.user es parte de supabase
-setMessage("✅ Bienvenido, sesión iniciada correctamente.");
+  setMessage(
+    "✅ Bienvenido, sesión iniciada correctamente."
+  );
+
+  setTimeout(() => {
+    router.push("/mvp");
+  }, 500);
 } else {
 setMessage("⚠️ No se encontró el usuario. Intenta de nuevo.");
 }
@@ -49,47 +55,51 @@ checkUser();
 if (loading) return <p className="text-center mt-10">Verificando
 sesión...</p>;
 return (
-<div className="max-w-sm mx-auto mt-10 p-6 border rounded-lg
-shadow">
-<h1 className="text-xl font-bold mb-4 text-center">Inicio de
-sesión</h1>
-{/* 📋 Al enviar el formulario se ejecuta handleLogin */}
-<form onSubmit={handleLogin} className="flex flex-col gap-4">
-{/* Campo para el correo */}
-<input
-type="email"
-placeholder="Correo electrónico"
-value={correo}
+<div className="login-page">
+    <div className="login-card">
 
-onChange={(e) => setCorreo(e.target.value)} // 🔄 Actualiza elestado
-required
-className="border p-2 rounded"
-/>
-{/* Campo para la contraseña */}
-<input
-type="password"
-placeholder="Contraseña"
-value={password}
-onChange={(e) => setPassword(e.target.value)} // 🔄 Actualizael estado
-required
-className="border p-2 rounded"
-/>
-<button type="submit" className="bg-green-600 text-white p-2
-rounded">
-Iniciar sesión
-</button>
-</form>
-{/* 💬 Mostramos mensajes de éxito o error */}
-{message && <p className="mt-4 text-center">{message}</p>}
-<p className="mt-4 text-center">
-¿No tienes cuenta?{" "}
-<button
-onClick={() => router.push("/register")}
-className="text-blue-600 underline"
->
-Regístrate aquí
-</button>
-</p>
-</div>
+      <div className="x-logo">X</div>
+
+      <h1 className="login-title">Inicia sesión en X</h1>
+
+      <form onSubmit={handleLogin} className="login-form">
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+          required
+          className="login-input"
+        />
+
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="login-input"
+        />
+
+        <button type="submit" className="login-button">
+          Iniciar sesión
+        </button>
+      </form>
+
+      {message && <p className="login-message">{message}</p>}
+
+      <p className="login-register">
+        ¿No tienes cuenta?
+      </p>
+
+      <button
+        onClick={() => router.push("/register")}
+        className="register-link"
+      >
+        Crear cuenta
+      </button>
+
+    </div>
+  </div>
 );
 }

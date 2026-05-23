@@ -266,251 +266,234 @@ export default function AdminPage() {
 
   return (
 
-    <div className="max-w-7xl mx-auto mt-10 p-6 space-y-10">
+  <div className="admin-page">
 
-      <h1 className="text-3xl font-bold text-center">
-        Panel Administrativo
-      </h1>
+    <h1 className="admin-title">
+      Panel Administrativo
+    </h1>
 
-      {message && (
+    {message && (
+      <p className="admin-message">
+        {message}
+      </p>
+    )}
 
-        <p className="text-center text-green-600">
-          {message}
-        </p>
-      )}
+    {/* ========================= */}
+    {/* PUBLICACIONES */}
+    {/* ========================= */}
 
-      {/* ========================= */}
-      {/* PUBLICACIONES */}
-      {/* ========================= */}
+    <section>
 
-      <section>
+      <h2 className="section-title">
+        Publicaciones
+      </h2>
 
-        <h2 className="text-2xl font-semibold mb-4">
-          Publicaciones
-        </h2>
+      <table className="admin-table">
 
-        <table className="w-full border-collapse border">
+        <thead className="admin-table-head">
 
-          <thead>
+          <tr>
 
-            <tr className="bg-gray-200">
+            <th>Usuario</th>
 
-              <th className="border p-2">
-                Usuario
-              </th>
+            <th>Contenido</th>
 
-              <th className="border p-2">
-                Contenido
-              </th>
+            <th>Imagen</th>
 
-              <th className="border p-2">
-                Imagen
-              </th>
+            <th>Acción</th>
 
-              <th className="border p-2">
-                Acción
-              </th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {publicaciones.map((pub) => (
+
+            <tr key={pub.id}>
+
+              <td>
+                @{nombreUsuarioDe(pub.usuario)}
+              </td>
+
+              <td>
+                {pub.contenido}
+              </td>
+
+              <td>
+
+                {pub.imagen && (
+
+                  <img
+                    src={pub.imagen}
+                    alt="post"
+                    className="post-image"
+                  />
+
+                )}
+
+              </td>
+
+              <td>
+
+                <button
+                  onClick={() =>
+                    eliminarPublicacion(pub.id)
+                  }
+                  className="delete-button"
+                >
+                  Eliminar
+                </button>
+
+              </td>
 
             </tr>
 
-          </thead>
+          ))}
 
-          <tbody>
+        </tbody>
 
-            {publicaciones.map((pub) => (
+      </table>
 
-              <tr key={pub.id}>
+    </section>
 
-                <td className="border p-2">
-                  @{nombreUsuarioDe(pub.usuario)}
-                </td>
+    {/* ========================= */}
+    {/* USUARIOS */}
+    {/* ========================= */}
 
-                <td className="border p-2">
-                  {pub.contenido}
-                </td>
+    <section>
 
-                <td className="border p-2">
+      <h2 className="section-title">
+        Usuarios
+      </h2>
 
-                  {pub.imagen && (
+      <table className="admin-table">
 
-                    <img
-                      src={pub.imagen}
-                      alt="post"
-                      className="w-20 h-20 object-cover"
-                    />
-                  )}
+        <thead className="admin-table-head">
 
-                </td>
+          <tr>
 
-                <td className="border p-2">
+            <th>Usuario</th>
 
-                  <button
-                    onClick={() =>
-                      eliminarPublicacion(pub.id)
-                    }
-                    className="bg-red-600 text-white px-2 py-1 rounded"
-                  >
-                    Eliminar
-                  </button>
+            <th>Correo</th>
 
-                </td>
+            <th>Foto</th>
 
-              </tr>
+            <th>Biografía</th>
 
-            ))}
+            <th>Acción</th>
 
-          </tbody>
+          </tr>
 
-        </table>
+        </thead>
 
-      </section>
+        <tbody>
 
-      {/* ========================= */}
-      {/* USUARIOS */}
-      {/* ========================= */}
+          {usuarios.map((user) => (
 
-      <section>
+            <tr key={user.id}>
 
-        <h2 className="text-2xl font-semibold mb-4">
-          Usuarios
-        </h2>
+              <td>
 
-        <table className="w-full border-collapse border">
+                <input
+                  type="text"
+                  value={user.nombre_usuario}
+                  onChange={(e) =>
+                    setUsuarios((prev) =>
+                      prev.map((u) =>
+                        u.id === user.id
+                          ? {
+                              ...u,
+                              nombre_usuario:
+                                e.target.value,
+                            }
+                          : u
+                      )
+                    )
+                  }
+                  className="admin-input"
+                />
 
-          <thead>
+              </td>
 
-            <tr className="bg-gray-200">
+              <td>
+                {user.correo}
+              </td>
 
-              <th className="border p-2">
-                Usuario
-              </th>
+              <td>
 
-              <th className="border p-2">
-                Correo
-              </th>
+                <input
+                  type="text"
+                  value={user.foto_perfil ?? ""}
+                  onChange={(e) =>
+                    setUsuarios((prev) =>
+                      prev.map((u) =>
+                        u.id === user.id
+                          ? {
+                              ...u,
+                              foto_perfil:
+                                e.target.value,
+                            }
+                          : u
+                      )
+                    )
+                  }
+                  className="admin-input"
+                />
 
-              <th className="border p-2">
-                Foto
-              </th>
+              </td>
 
-              <th className="border p-2">
-                Biografía
-              </th>
+              <td>
 
-              <th className="border p-2">
-                Acción
-              </th>
+                <textarea
+                  value={user.biografia ?? ""}
+                  onChange={(e) =>
+                    setUsuarios((prev) =>
+                      prev.map((u) =>
+                        u.id === user.id
+                          ? {
+                              ...u,
+                              biografia:
+                                e.target.value,
+                            }
+                          : u
+                      )
+                    )
+                  }
+                  className="admin-textarea"
+                />
+
+              </td>
+
+              <td>
+
+                <button
+                  onClick={() =>
+                    actualizarUsuario(
+                      user.id,
+                      user.nombre_usuario,
+                      user.foto_perfil,
+                      user.biografia
+                    )
+                  }
+                  className="save-user-button"
+                >
+                  Guardar
+                </button>
+
+              </td>
 
             </tr>
 
-          </thead>
+          ))}
 
-          <tbody>
+        </tbody>
 
-            {usuarios.map((user) => (
+      </table>
 
-              <tr key={user.id}>
+    </section>
 
-                <td className="border p-2">
+  </div>
 
-                  <input
-                    type="text"
-                    value={user.nombre_usuario}
-                    onChange={(e) =>
-                      setUsuarios((prev) =>
-                        prev.map((u) =>
-                          u.id === user.id
-                            ? {
-                                ...u,
-                                nombre_usuario:
-                                  e.target.value,
-                              }
-                            : u
-                        )
-                      )
-                    }
-                    className="border p-1 w-full"
-                  />
-
-                </td>
-
-                <td className="border p-2">
-                  {user.correo}
-                </td>
-
-                <td className="border p-2">
-
-                  <input
-                    type="text"
-                    value={user.foto_perfil ?? ""}
-                    onChange={(e) =>
-                      setUsuarios((prev) =>
-                        prev.map((u) =>
-                          u.id === user.id
-                            ? {
-                                ...u,
-                                foto_perfil:
-                                  e.target.value,
-                              }
-                            : u
-                        )
-                      )
-                    }
-                    className="border p-1 w-full"
-                  />
-
-                </td>
-
-                <td className="border p-2">
-
-                  <textarea
-                    value={user.biografia ?? ""}
-                    onChange={(e) =>
-                      setUsuarios((prev) =>
-                        prev.map((u) =>
-                          u.id === user.id
-                            ? {
-                                ...u,
-                                biografia:
-                                  e.target.value,
-                              }
-                            : u
-                        )
-                      )
-                    }
-                    className="border p-1 w-full"
-                  />
-
-                </td>
-
-                <td className="border p-2">
-
-                  <button
-                    onClick={() =>
-                      actualizarUsuario(
-                        user.id,
-                        user.nombre_usuario,
-                        user.foto_perfil,
-                        user.biografia
-                      )
-                    }
-                    className="bg-green-600 text-white px-2 py-1 rounded"
-                  >
-                    Guardar
-                  </button>
-
-                </td>
-
-              </tr>
-
-            ))}
-
-          </tbody>
-
-        </table>
-
-      </section>
-
-    </div>
-  );
+);
 }

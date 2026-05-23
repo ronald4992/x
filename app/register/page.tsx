@@ -89,82 +89,73 @@ checkUser();
 }, [router]);
 if (loading) return <p className="text-center mt-10">Verificando
 sesión...</p>;
-  return (
+return (
+  <div className="register-page">
+    <div className="register-card">
 
-    <div className="max-w-sm mx-auto mt-10 p-6 border rounded-lg shadow">
+      <div className="x-logo">𝕏</div>
 
-      <h1 className="text-xl font-bold mb-4 text-center">
-        Registro de usuario
+      <h1 className="register-title">
+        Crear cuenta
       </h1>
 
-      {/* 📋 Formulario */}
       <form
         onSubmit={handleRegister}
-        className="flex flex-col gap-4"
+        className="register-form"
       >
-
-        {/* Nombre usuario */}
         <input
           type="text"
           placeholder="Nombre de usuario"
           value={nombreUsuario}
-          onChange={(e) =>
-            setNombreUsuario(e.target.value)
-          }
+          onChange={(e) => setNombreUsuario(e.target.value)}
           required
-          className="border p-2 rounded"
+          className="register-input"
         />
 
-        {/* Correo */}
         <input
           type="email"
           placeholder="Correo electrónico"
           value={correo}
-          onChange={(e) =>
-            setCorreo(e.target.value)
-          }
+          onChange={(e) => setCorreo(e.target.value)}
           required
-          className="border p-2 rounded"
+          className="register-input"
         />
 
-        {/* Contraseña */}
         <input
           type="password"
           placeholder="Contraseña"
           value={password}
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => setPassword(e.target.value)}
           required
-          className="border p-2 rounded"
+          className="register-input"
         />
 
-        {/* Botón */}
         <button
           type="submit"
-          className="bg-blue-600 text-white p-2 rounded"
+          className="register-button"
         >
           Registrarse
         </button>
-
       </form>
 
-      {/* 💬 Mensaje */}
       {message && (
-        <p className="mt-4 text-center">
+        <p className="register-message">
           {message}
         </p>
       )}
-        {/* 🔗 Enlace a la página de login */}
-<p className="mt-4 text-center">
-¿Ya tienes cuenta?{" "}
-<button
-onClick={() => router.push("/login")}
-className="text-blue-600 underline"
->
-Inicia sesión aquí
-</button>
-</p>
+
+      <p className="register-login-text">
+        ¿Ya tienes cuenta?
+      </p>
+
+      <button
+        onClick={() => router.push("/login")}
+        className="login-link"
+      >
+        Inicia sesión
+      </button>
+
     </div>
-  );
+  </div>
+);
 }

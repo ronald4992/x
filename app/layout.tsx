@@ -141,53 +141,53 @@ export default function RootLayout({
 
         {user && (
 
-          <nav className="bg-gray-100 p-4 flex gap-4 justify-center items-center">
+         <nav className="navbar">
 
-            {/* ========================= */}
-            {/* ADMIN */}
-            {/* ========================= */}
+  <div className="navbar-logo">
+    𝕏
+  </div>
 
-            {isAdmin ? (
+  <div className="navbar-links">
 
-              <Link
-                href="/admin"
-                className="text-red-600 font-semibold hover:underline"
-              >
-                Panel Admin
-              </Link>
+    {isAdmin ? (
 
-            ) : (
+      <Link
+        href="/admin"
+        className="nav-link admin-link"
+      >
+        Panel Admin
+      </Link>
 
-              <>
-                <Link
-                  href="/mvp"
-                  className="text-blue-600 font-semibold hover:underline"
-                >
-                  MVP
-                </Link>
+    ) : (
 
-                <Link
-                  href="/user"
-                  className="text-blue-600 font-semibold hover:underline"
-                >
-                  Mi Perfil
-                </Link>
-              </>
+      <>
+        <Link
+          href="/mvp"
+          className="nav-link"
+        >
+          Inicio
+        </Link>
 
-            )}
+        <Link
+          href="/user"
+          className="nav-link"
+        >
+          Mi Perfil
+        </Link>
+      </>
 
-            {/* ========================= */}
-            {/* LOGOUT */}
-            {/* ========================= */}
+    )}
 
-            <button
-              onClick={cerrarSesion}
-              className="bg-red-500 text-white px-3 py-1 rounded"
-            >
-              Cerrar sesión
-            </button>
+  </div>
 
-          </nav>
+  <button
+    onClick={cerrarSesion}
+    className="logout-nav-button"
+  >
+    Cerrar sesión
+  </button>
+
+</nav>
 
         )}
 
